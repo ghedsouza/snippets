@@ -16,3 +16,19 @@ def get_dir_tree(top_level, file_pattern, include_directories = True):
                     # path relative to base_path
                     os.path.abspath(root)[top_level_path_length:], filename))
     return dir_tree
+
+def get_all_url_patterns():
+    """
+    Return all defined URLS in django project.
+    Taken from: http://djangosnippets.org/snippets/1434/
+    """
+    from django.core import urlresolvers
+
+    "Returns list of (pattern-name, pattern) tuples"
+    resolver = urlresolvers.get_resolver(None)
+    patterns = sorted([
+        (key, value[0][0][0])
+        for key, value in resolver.reverse_dict.items()
+        if isinstance(key, basestring)
+    ])
+    return patterns
