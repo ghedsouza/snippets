@@ -1,3 +1,8 @@
+# Make all log messages print to stderr (useful for unit tests that hide logging)
+import logging
+logging.getLogger().addHandler(logging.StreamHandler())
+
+
 def get_dir_tree(top_level, file_pattern, include_directories = True):
     # Return a list of files matching glob_pattern by recursing through top_level
     # (like unix find command)
