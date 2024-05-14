@@ -3,6 +3,19 @@ import logging
 logging.getLogger().addHandler(logging.StreamHandler())
 
 
+import time
+from contextlib import contextmanager
+@contextmanager
+def time_it(name):
+    t1_start = time.perf_counter()
+    try:
+        yield
+    finally:
+        t1_stop = time.perf_counter()
+        seconds = t1_stop - t1_start
+        print(f"{name} took {seconds:.2f} seconds.")
+
+
 def get_dir_tree(top_level, file_pattern, include_directories = True):
     # Return a list of files matching glob_pattern by recursing through top_level
     # (like unix find command)
